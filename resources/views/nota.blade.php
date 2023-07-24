@@ -6,6 +6,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -62,7 +63,7 @@
         <br>
 
       </form>
-      <table class="table table-bordered" id="example">
+      <table class="table table-bordered" id="example" style="text-align: center">
         <thead class="thead-light">
           <tr>
             <th scope="col">No</th>
@@ -72,7 +73,7 @@
             <th scope="col">Total</th>
           </tr>
         </thead>
-        <tbody style="text-align: center">
+        <tbody>
         @if($kode_pesan!='belum ada')
             @if(count($produks)==0)
                 <tr>
@@ -92,7 +93,7 @@
                                    data-price="{{$prod['harga']}}"
                                    type="text" name="quantity" style="text-align: center">
                         </td>
-                        <td id="totalh">Rp.40000</td>
+                        <td id="totalh{{$prod['id']}}"></td>
                     </tr>
                 @endforeach
             @endif
@@ -106,7 +107,7 @@
           <tr>
             <th colspan="4">Kode Pesanan : {{$kode_pesan}}</th>
 
-            <th colspan="2">Rp.35000 </th>
+            <th colspan="2" id="subtotal"></th>
           </tr>
         </tfoot>
       </table>
@@ -168,6 +169,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript">
+        let kodep = "{{$kode_pesan}}";
+        let total_items = @json($produks);
+        let htotal = [];
         $(document).ready(function() {
             $.ajaxSetup({
                 headers: {
@@ -177,21 +181,48 @@
 
             $(document).on("keyup", "input[name=quantity]", function(e) {
                 e.preventDefault();
+                let url = '{{route("updateqty")}}';
                 let id = $(this).data('id');
                 let qty = $(this).val();
                 $.ajax({
-                    url: 'backend/update_quantity.php',
-                    type: 'POST',
-                    dataType: 'JSON',
+                    url,
+                    method: "POST",
+                    dataType: "JSON",
                     data: {
                         id: id,
-                        id_user: id_user,
+                        kode_pesan: kodep,
                         qty: qty
                     },
-                    success: function(data) {}
+                    success: function(data) {
+                        console.log(data.success)
+                    },
+                    error: function(e) {
+                        console.log(e)
+                    }
                 });
             });
         });
+
+        Hitunghbarang();
+
+        function Hitunghbarang() {
+            let subtotal = 0;
+            let totalAll = 0;
+
+            for (i = 0; i < total_items.length; i++) {
+                let idne = total_items[i]['id'];
+                itemID = document.getElementById("quantity" + idne);
+                if (typeof itemID == 'undefined' || itemID == null) {
+                    alert("No such item - " + "quantity" + idne);
+                } else {
+                    htotal[idne] = parseInt(itemID.value) * parseInt(itemID.getAttribute("data-price"));
+                    subtotal = subtotal + parseInt(itemID.value) * parseInt(itemID.getAttribute("data-price"));
+                }
+                document.getElementById("totalh" + idne).innerHTML = 'Rp '+parseInt(htotal[idne]);
+            }
+            document.getElementById("subtotal").innerHTML = 'Rp '+ parseInt(subtotal);
+
+        }
     </script>
   </body>
 
