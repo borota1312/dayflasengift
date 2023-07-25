@@ -9,6 +9,8 @@ class Pembeli extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'id_pembeli';
-    protected $table = 'pembeli';
+    protected $table = 'pembelis';
+    protected $fillable = [
+        'nama_pembeli', 'alamat_pembeli','no_hp','jenis_kelamin'
+    ];
 }

@@ -33,6 +33,9 @@ Route::get('/daftarproduk/{kategori}/{idsubkategori}', [KategoriController::clas
 Route::post('/addtocart/', [CartController::class, 'addTo'])->name('addtocart');
 Route::post('/updateqty/', [CartController::class, 'updateQty'])->name('updateqty');
 Route::get('/nota', [CartController::class, 'nota'])->name('nota');
+Route::get('/pesanan/{kode_pesan}', [CartController::class, 'checkout'])->name('checkout');
+Route::post('/post_pembeli/', [CartController::class, 'postPembeli'])->name('postpembeli');
+Route::get('/by_order', [CartController::class, 'byOrder'])->name('byorder');
 
 Route::get('/ad_about', function () {
     return view('ad_about');
@@ -46,10 +49,6 @@ Route::get('/about', function () {
     return view('about');
 });
 
-Route::get('/pesanan', function () {
-    return view('pesanan');
-});
-
 Route::get('/request', function () {
     return view('request');
 });
@@ -61,10 +60,6 @@ Route::get('/request', function () {
 // Route::get('/register', function () {
 //     return view('register');
 // });
-
-Route::get('/by_order', function () {
-    return view('by_order');
-});
 
 Route::get('/ad_by_order', function () {
     return view('ad_by_order');

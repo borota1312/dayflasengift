@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pesanan_sayas', function (Blueprint $table) {
-            $table->increments('id_pemesanan');
-            $table->unsignedInteger("kode_pemesanan_id");
-            $table->string("status", 20);
+        Schema::create('detail_notas', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('notas_id')->references('id')->on('notas');
+            $table->foreignId('produk_id')->references('id')->on('produks');
+            $table->integer('qty');
             $table->timestamps();
-            $table->foreign('kode_pemesanan_id')->references('kode_pemesanan')->on('pemesanans')->onDelete('cascade');
         });
     }
 
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pesanan_sayas');
+        Schema::dropIfExists('detail_notas');
     }
 };

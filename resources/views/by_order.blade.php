@@ -54,15 +54,16 @@
     <div class="judul text-center mt-5">
         <h3 class="font-weight-bold">CEK PESANANAN</h3>
     <hr>
-    <form method="POST" action="">
+    <form method="GET" action="/by_order">
       <br>
       <div class="form-group">
         <label for="exampleInputPassword1">Kode Pesanan</label>
           <div style="width:50%; float:absolute; left:280px" class="input-group">
-            <div  class="input-group-prepend">            
+            <div  class="input-group-prepend">
             </div>
-            <input type="password" style="text-align: center" class="form-control" placeholder="Masukkan Kode Pesanan" name="kode_pesanan">
-        </div>
+            <input type="text" style="text-align: center" class="form-control" placeholder="Masukkan Kode Pesanan" name="kode_pesan">
+              <button type="submit" class="ml-2 btn btn-primary">CEK</button>
+          </div>
         <br>
         <table class="table table-bordered">
             <thead class="thead-light">
@@ -76,17 +77,25 @@
                 </th>
             </tr>
             </thead>
-            <tr class="judul">
-                <th scope="row">1</th>
-                <th scope="row">Muhammad Maulani</th>
-                <th scope="row">1eofn32</th>
-                <th scope="row">Banjarmasin</th>
-                <th scope="row">089685040205</th>
-                <th scope="row">Proses</th>
-            </tr>
+            @if(count($notas)==0)
+                <tr class="judul">
+                    <td style="text-align: center" colspan="6">Belum ada pesanan di toko ini</td>
+                </tr>
+            @else
+                @foreach($notas as $index => $prod)
+                    <tr class="judul">
+                        <th scope="row">{{$index+1}}</th>
+                        <th scope="row">{{$prod['nama_pembeli']}}</th>
+                        <th scope="row">{{$prod['kode_pesan']}}</th>
+                        <th scope="row">{{$prod['alamat_pembeli']}}</th>
+                        <th scope="row">{{$prod['no_hp']}}</th>
+                        <th scope="row">{{$prod['status']}}</th>
+                    </tr>
+                @endforeach
+            @endif
+
     </table>
       </div>
-      <button type="submit" name="submit" class="btn btn-primary">CEK</button>
       <a href="/" type="reset" name="reset" class="btn btn-danger" >KEMBALI</a>
     </form>
 <!-- Akhir Form Login -->

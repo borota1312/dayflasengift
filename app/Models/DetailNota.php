@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cart extends Model
+class DetailNota extends Model
 {
     use HasFactory;
-
-    protected $table = 'carts';
+    protected $table = 'detail_notas';
     protected $fillable = [
-        'kode_pesan', 'produk_id','qty'
+        'notas_id',
+        'produk_id',
+        'qty',
     ];
 }

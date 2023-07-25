@@ -115,13 +115,11 @@
 
 
       <br>
-      <form method="" action="pesanan">
-        <a href="/" class="btn btn-primary btn-sm">Tambah Produk</a>
-        <button class="btn btn-success btn-sm" name="konfirm" href="pesanan">Konfirmasi Pesanan</button>
-      <button class="btn btn-danger btn-sm" name="bayar" onclick="printData()">Cetak Pesanan</button>
-      <a type="submit" class="btn btn-primary" style="float:right" name="Kembali" href="/" >Kembali</a>
-
-
+      <form>
+          <a href="/" class="btn btn-primary btn-sm">Tambah Produk</a>
+          <button class="btn btn-success btn-sm" href="{{route('checkout',$kode_pesan)}}" id="checkout" disabled>Konfirmasi Pesanan</button>
+          <button class="btn btn-danger btn-sm" name="bayar" onclick="printData()">Cetak Pesanan</button>
+          <a type="submit" class="btn btn-primary" style="float:right" name="Kembali" href="/" >Kembali</a>
       </form>
 
 
@@ -170,7 +168,15 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript">
         let kodep = "{{$kode_pesan}}";
-        let total_items = @json($produks);
+        let hti = "{{count($produks)}}";
+        let total_items ='';
+        let data_barang ='';
+        let total = 0;
+        if (hti>0){
+            total_items = @json($produks);
+            document.getElementById("checkout").disabled = false;
+        }
+
         let htotal = [];
         $(document).ready(function() {
             $.ajaxSetup({
@@ -221,7 +227,7 @@
                 document.getElementById("totalh" + idne).innerHTML = 'Rp '+parseInt(htotal[idne]);
             }
             document.getElementById("subtotal").innerHTML = 'Rp '+ parseInt(subtotal);
-
+            total = subtotal;
         }
     </script>
   </body>
