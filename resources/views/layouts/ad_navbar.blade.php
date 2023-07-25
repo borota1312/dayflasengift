@@ -8,9 +8,9 @@
           <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav ml-auto">
                   <li class="nav-item">
-                      <a class="nav-link mr-4" href="ad_user">HOME</a>
+                      <a class="nav-link mr-4" href="/ad_user">HOME</a>
                   </li>
-                <li class="nav-item">
+                  <li class="nav-item">
                       <a class="nav-link mr-4" href="/produk">PRODUCT</a>
                   </li>
                   <li class="nav-item">
@@ -19,9 +19,16 @@
                   <li class="nav-item">
                       <a class="nav-link mr-4" href="/ad_by_order">BY ORDER</a>
                   </li>
-                  <li class="nav-item">
-                      <a class="nav-link mr-4" href="/logout.php">LOGOUT</a>
-                  </li>
+                  @if (Route::has('login'))
+                      @auth
+                          <li class="nav-item"><a class="nav-link mr-4" href="#"
+                                  onclick="event.preventDefault(); document.getElementById('logout-form-top-bar').submit();">LOGOUT</a>
+                          </li>
+                          <form id="logout-form-top-bar" action="{{ route('logout') }}" method="POST" class="d-none">
+                              @csrf
+                          </form>
+                      @endauth
+                  @endif
               </ul>
           </div>
       </div>

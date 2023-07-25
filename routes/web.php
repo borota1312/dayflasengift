@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\RoleHelper;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\produkController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +20,12 @@ use App\Http\Controllers\CartController;
 */
 
 
-Route::get('/', function(){
+Route::get('/', function () {
     return view('user');
 });
-Route::get('ad_user', function(){
-    return view('ad_user');
-});
+// Route::get('ad_user', function () {
+//     return view('ad_user');
+// });
 
 Route::get('/daftarproduk/{nama}', [KategoriController::class, 'index']);
 Route::get('/daftarproduk/{kategori}/{idsubkategori}', [KategoriController::class, 'subIndex']);
@@ -51,13 +54,13 @@ Route::get('/request', function () {
     return view('request');
 });
 
-Route::get('/login', function () {
-    return view('login');
-});
+// Route::get('/login', function () {
+//     return view('login');
+// });
 
-Route::get('/register', function () {
-    return view('register');
-});
+// Route::get('/register', function () {
+//     return view('register');
+// });
 
 Route::get('/by_order', function () {
     return view('by_order');
@@ -83,3 +86,18 @@ Route::prefix('auth')->group(function(){
 });
 
 */
+
+Auth::routes();
+/*------------------------------------------
+
+--------------------------------------------
+
+All Admin Routes List
+
+--------------------------------------------
+
+--------------------------------------------*/
+
+Route::middleware(['auth', 'user-access:' . RoleHelper::AdminText])->group(function () {
+    Route::get('/ad_user', [HomeController::class, 'adminHome'])->name('ad_user');
+});

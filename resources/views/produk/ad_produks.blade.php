@@ -27,7 +27,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Fredoka+One&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.css" />
     <title>Dayflasen Gift</title>
+    <style>
+        .dataTables_wrapper {
+            margin-top: 40px;
+        }
+    </style>
 </head>
 
 <body>
@@ -78,21 +84,20 @@
                     </div>
                 @endif
 
-                <a href="{{ route('produk.create') }}" style="position: relative; right:450px; top:40px"
-                    class="btn btn-primary btn-sm">Tambah Data</a><br><br><br>
-                <table class="table table-bordered">
+                <a href="{{ route('produk.create') }}" style="position: relative; right:500px; top:2px"
+                    class="btn btn-primary btn-sm ">Tambah Data</a><br>
+                <table class="table table-bordered" id="product">
                     <thead class="thead-light">
-                    <tr class="judul">
-                        <th scope="row">No</th>
-                        <th scope="row">Nama Produk</th>
-                        <th
-                        scope="row">Deskripsi</th>
-                        <th scope="row">Harga</th>
-                        <th scope="row">Kategori
-                        </th>
-                        <th scope="row">Gambar Produk</th>
-                        <th scope="row">Opsi
-                        </th>
+                        <tr class="judul">
+                            <th scope="row">No</th>
+                            <th scope="row">Nama Produk</th>
+                            <th scope="row">Deskripsi</th>
+                            <th scope="row">Harga</th>
+                            <th scope="row">Kategori
+                            </th>
+                            <th scope="row">Gambar Produk</th>
+                            <th scope="row">Opsi
+                            </th>
                     </thead>
                     </tr>
                     <?php $i = $data->firstItem(); ?>
@@ -120,7 +125,7 @@
                     @endforeach
 
                     </tr>
-             
+
                     <?php /* } */ ?>
                 </table>
             </div>
@@ -170,6 +175,14 @@
         </script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/jquery.js"></script>
+        <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.js"></script>
+        <script>
+            $(document).ready(function() {
+                var table = $('#product').DataTable({
+                    // ordering: false,
+                });
+            })
+        </script>
 </body>
 
 </html>

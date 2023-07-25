@@ -6,8 +6,47 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function __construct()
+
     {
-        return view('index');
+
+        $this->middleware('auth');
+    }
+
+
+
+    /**
+
+     * Show the application dashboard.
+
+     *
+
+     * @return \Illuminate\Contracts\Support\Renderable
+
+     */
+
+    public function index()
+
+    {
+
+        return view('user');
+    }
+
+
+
+    /**
+
+     * Show the application dashboard.
+
+     *
+
+     * @return \Illuminate\Contracts\Support\Renderable
+
+     */
+
+    public function adminHome()
+
+    {
+        return view('ad_user');
     }
 }
