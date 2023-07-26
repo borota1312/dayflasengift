@@ -95,4 +95,8 @@ All Admin Routes List
 
 Route::middleware(['auth', 'user-access:' . RoleHelper::AdminText])->group(function () {
     Route::get('/ad_user', [HomeController::class, 'adminHome'])->name('ad_user');
+    Route::get('/ad_by_order', [AdminController::class, 'byOrder'])->name('ad_by_order');
+    Route::post('/update_status', [AdminController::class, 'updateStatus'])->name('update_status');
+    Route::get('/ad_detail_order/{id}', [AdminController::class, 'detailPesanan'])->name('detail_pesanan');
+
 });

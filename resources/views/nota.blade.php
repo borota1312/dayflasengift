@@ -115,12 +115,12 @@
 
 
       <br>
-      <form>
+{{--      <form>--}}
           <a href="/" class="btn btn-primary btn-sm">Tambah Produk</a>
-          <button class="btn btn-success btn-sm" href="{{route('checkout',$kode_pesan)}}" id="checkout" disabled>Konfirmasi Pesanan</button>
+          <button class="btn btn-success btn-sm" onclick="window.location.href='{{route('checkout',$kode_pesan)}}';" id="checkout" disabled>Konfirmasi Pesanan</button>
           <button class="btn btn-danger btn-sm" name="bayar" onclick="printData()">Cetak Pesanan</button>
           <a type="submit" class="btn btn-primary" style="float:right" name="Kembali" href="/" >Kembali</a>
-      </form>
+{{--      </form>--}}
 
 
     </div>
