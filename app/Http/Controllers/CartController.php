@@ -216,18 +216,13 @@ class CartController extends Controller
 
     public function byOrder(Request $request)
     {
-        $notas = '';
+        $notas = [];
         if ($request->has('kode_pesan')) {
             $notas = Nota::query()
                 ->join('pembelis', 'pembelis.id', '=', 'notas.pembeli_id')
                 ->where('notas.kode_pesan', '=', $request->kode_pesan)
                 ->get(['notas.id', 'notas.kode_pesan', 'notas.status', 'pembelis.*']);
-        } else {
-            $notas = Nota::query()
-                ->join('pembelis', 'pembelis.id', '=', 'notas.pembeli_id')
-                ->get(['notas.id', 'notas.kode_pesan', 'notas.status', 'pembelis.*']);
         }
-        //        dd($notas);
         return view('by_order', compact('notas'));
     }
 }
